@@ -1,0 +1,5 @@
+* ngspice startup file (read automatically from the current directory)
+* psa = PSpice-compatible parsing for all files (TI and Infineon models are PSpice)
+set ngbehavior=psa
+* use all CPU cores for model evaluation
+set num_threads=4

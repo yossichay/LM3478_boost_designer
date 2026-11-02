@@ -1,0 +1,46 @@
+# 40 V setting: start at 100 mA so Cout discharges from the .ic (50 V) quickly, then load steps
+name = "an1286_verify_40V"
+netlist = "../Non-iso-Booster-TI-ngspice.cir"
+tran = ".tran 50n 20m 0 50n"
+includes = ["WE-PD.lib"]
+
+[grid.params]
+vin = [11]
+
+[grid.elements]
+R4 = ["25k"]
+R5 = ["56k"]
+XL1 = ["PD_1260_7447706470_47u"]
+
+[[case]]
+name = "current"
+elements = { R1 = "68m", R2 = "100", R6 = "33k", C4 = "3.3n", C3 = "47p" }
+
+[[case]]
+name = "AN1286 rev B"
+elements = { R1 = "33m", R2 = "1.2k", R6 = "8.2k", C4 = "22n", C3 = "220p" }
+
+[load]
+steps = [["0", "100m"], ["9m", "10m"], ["12m", "40m"], ["15m", "100m"], ["17m", "40m"]]
+rise = "1u"
+
+[measure]
+windows = [
+  { name = "10mA",  from = "11m", to = "11.9m" },
+  { name = "40mA",  from = "14m", to = "14.9m" },
+  { name = "100mA", from = "16.2m", to = "16.9m" },
+  { name = "step_up", from = "15m", to = "16m" },
+  { name = "step_dn", from = "17m", to = "18m" },
+]
+meas = [
+  { name = "vout_avg", func = "avg", expr = "v(out)" },
+  { name = "vout_min", func = "min", expr = "v(out)" },
+  { name = "vout_max", func = "max", expr = "v(out)" },
+  { name = "vout_pp",  func = "pp",  expr = "v(out)" },
+  { name = "il_max",   func = "max", expr = "i(vsense)" },
+  { name = "comp_pp",  func = "pp",  expr = "v(comp)" },
+]
+
+[plot]
+signals = ["v(out)", "i(vsense)", "v(comp)"]
+windows = [["0", "20m"], ["14.8m", "18.5m"]]

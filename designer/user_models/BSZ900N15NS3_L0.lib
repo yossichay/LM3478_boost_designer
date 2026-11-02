@@ -1,0 +1,37 @@
+.SUBCKT BSZ900N15NS3_L0  drain  gate  source
+
+Lg     gate  g1    1.2n
+Ld     drain d1    100p
+Ls     source s1   250p
+Rs      s1    s2   954u
+
+Rg     g1    g2     1.7
+M1      d2    g2    s2    s2    DMOS    L=1u   W=1u
+.MODEL DMOS NMOS ( KP= 18.7  VTO=4.45  THETA=0  VMAX=1.5e5  ETA=0.005  LEVEL=3)
+Rd     d1a    d2    41.6m TC=12m
+.MODEL MVDR NMOS (KP=41.14 VTO=-1   LAMBDA=0.19)
+Mr d1 d2a d1a d1a MVDR W=1u L=1u
+Rx d2a d1a 1m
+
+Dbd     s2    d2    Dbt
+.MODEL     Dbt    D(BV=175   M=0.4  CJO=0.19n  VJ=0.9V)
+Rsp     s2    s3     0.51
+Dbd1     s3    d2    Dbt1
+.MODEL     Dbt1    D(BV=1000   M=0.4  CJO=0.37n  VJ=0.9V)
+Dbody   s2   21    DBODY
+.MODEL DBODY  D(IS=14.2p  N=1.185  RS=0.27u  EG=1.12  TT=100n)
+Rdiode  d1  21    5.88m TC=10m
+
+.MODEL   sw    NMOS(VTO=0  KP=10   LEVEL=1)
+Maux      g2   c    a    a   sw
+Maux2     b    d    g2    g2   sw
+Eaux      c    a    d2    g2   1
+Eaux2     d    g2   d2    g2   -1
+Cox       b    d2   0.06n
+.MODEL     DGD    D(M=0.8   CJO=0.06n   VJ=0.5)
+Rpar      b    d2   1Meg
+Dgd       a    d2   DGD
+Rpar2     d2   a    10Meg
+Cgs     g2    s2    0.37n
+
+.ENDS  BSZ900N15NS3_L0

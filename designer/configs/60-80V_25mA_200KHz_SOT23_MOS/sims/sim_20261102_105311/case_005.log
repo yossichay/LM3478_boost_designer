@@ -1,0 +1,416 @@
+Using SPARSE 1.3 as Direct Linear Solver
+
+Note: Compatibility modes selected: ps a
+
+
+Circuit: * non-isolated booster (lm3478) - ngspice port of non-iso-booster-ti-ltspice.net
+
+Reducing trtol to 1 for xspice 'A' devices
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vcc_ic                                       5
+xu1.ocdly                                    1
+xu1.oc                                       1
+xu1.oc1                                      1
+xu1.v7p2                               4.99999
+xu1.ss                                    1.26
+xu1.n16930285                                1
+xu1.n16931482                                1
+xu1.ref                                   1.26
+xu1.e_abm6_int1                           1.26
+xu1.x_u6.yint                                0
+xu1.x_u6.e_abmgate_int1                      0
+xu1.n16908277                                0
+xu1.n16875644                                0
+xu1.n16909753                                1
+xu1.reset                                    0
+xu1.n16855996                               -3
+n003                               8.23919e-12
+xu1.e_edriver_int1                          -3
+xu1.pwm_clk                                  0
+xu1.n16850239                                0
+xu1.g_iss_int1                        1.26e-09
+xu1.oscshut                                  0
+xu1.uvlo                                   2.5
+xu1.oc2                                      0
+xu1.n16981880                                0
+xu1.n16982093                                0
+xu1.drvrsig                                 -3
+xu1.e_e_oc2_int1                             1
+xu1.x_u1.n167973070                          1
+xu1.x_u1.x_u138.yint                         1
+xu1.x_u1.x_u138.e_abmgate_int1               1
+xu1.x_u1.tonmin                              0
+xu1.x_u1.n16795506                           1
+xu1.x_u1.e_abm55_int1                        0
+xu1.x_u1.ton325n                      1.01e-12
+xu1.x_u1.g_abmii5_int1                       0
+xu1.x_u1.x_u17.x1.yint1                      0
+xu1.x_u1.x_u17.x1.e_abmgate1_int1               0
+xu1.set                                      0
+xu1.x_u1.x_u17.x1.yint2                      0
+xu1.x_u1.x_u17.x1.yint3                      1
+xu1.x_u1.x_u17.x1.e_abmgate2_int1               1
+xu1.x_u1.x_u17.clkdel                        1
+xu1.x_u1.x_u17.x2.yint                       0
+xu1.x_u1.x_u17.x2.e_abmgate_int1               0
+xu1.x_u1.x_u17.clkint                        0
+xu1.x_u1.x_u17.qint                          0
+xu1.x_u1.x_u17.gq_int1                       0
+xu1.x_u1.n16793552                           1
+xu1.x_u1.n16793493                           1
+xu1.x_u1.x_u17.my5                           5
+xu1.x_u1.x_u17.qqq                           0
+xu1.x_u1.x_u17.x3.yint1                      0
+xu1.x_u1.x_u17.x3.e_abmgate1_int1               0
+xu1.x_u1.x_u17.x3.yint2                      0
+xu1.x_u1.x_u17.x3.yint3                      0
+xu1.x_u1.x_u17.x3.e_abmgate2_int1               0
+xu1.x_u1.x_u17.qqqd1                         0
+xu1.x_u1.x_u17.qbr                           1
+xu1.x_u1.x_u17.eqb_int1                      1
+xu1.x_u1.n16793497                           1
+xu1.x_u1.x_u137.yint                         1
+xu1.x_u1.x_u137.e_abmgate_int1               1
+xu1.n16855935                                0
+xu1.vcc                                4.99999
+xu1.e_gain4_int1                           2.5
+xu1.n16943348                            2.382
+xu1.n16943331                              2.8
+xu1.vgm_ref                               1.26
+n006                                   1.22216
+xu1.x_erramp.4                         1.17285
+xu1.x_erramp.11                            1.3
+comp                                   1.40741
+xu1.x_erramp.gb7_int1              2.93211e-05
+xu1.x_erramp.9                         1.17285
+xu1.x_erramp.3                         1.17285
+xu1.x_erramp.eb9_int1                  1.17285
+xu1.x_erramp.1                         1.17285
+xu1.x_erramp.gb3_int1              1.17279e-09
+xu1.x_erramp.2                       0.0378337
+xu1.x_erramp.5                         1.17285
+xu1.x_erramp.eb4_int1                  1.17285
+xu1.x_erramp.10                              5
+xu1.e_abm166_int1                          2.8
+xu1.fa_sd_30uhigh                            0
+xu1.x_u7.inp1                                0
+xu1.x_u7.inm1                            -2.15
+xu1.n16926804                             2.85
+xu1.x_u7.inp2                             0.17
+xu1.x_u7.ehys_int1                       -0.17
+xu1.x_u7.1                                   1
+xu1.n16927149                             0.17
+xu1.x_u7.eout_int1                           1
+n007                                    5262.3
+xu1.g_abmii1_int1                        6.416
+xu1.ramp                                166650
+xu1.fb_nospike                         1.22216
+xu1.fbval                              1.22216
+xu1.x_u138.yint                              0
+xu1.x_u138.e_abmgate_int1                    0
+xu1.n16983200                                1
+xu1.x_u137.yint                              1
+xu1.x_u137.e_abmgate_int1                    1
+xu1.n16907101                                1
+xu1.ov                                       0
+xu1.e_ovgen_int1                             0
+xu1.e_abm167_int1                            0
+n005                                  0.989616
+xu1.e_gain3_int1                       1.22216
+xu1.x_u2.e_rampgen_int1                 166650
+xu1.x_u2.12                                  0
+xu1.x_u2.sawtooth                       102554
+xu1.clk                                    0.2
+xu1.x_u2.e_slowtst2_int1                   0.2
+xu1.x_u2.n16832334                           0
+xu1.x_u2.0p1v                              0.1
+xu1.x_u2.faint                        0.989616
+xu1.fa                                0.989616
+xu1.x_u2.e_shutgen_int1                      0
+xu1.x_u2.13                          0.0618869
+xu1.x_u2.e_e12gen_int1                       0
+xu1.x_u2.3                                   0
+xu1.x_u2.5                         2.43811e-05
+xu1.x_u2.fa_gen                              1
+xu1.x_u2.e_vfagen_int1                       1
+xu1.x_u2.x_u2.yint                           0
+xu1.x_u2.x_u2.e_abmgate_int1                 0
+xu1.x_u2.n16789125                4.11154e-113
+xu1.x_u2.fa_sd_int                           0
+xu1.x_u2.x_u789.inp1                         0
+xu1.x_u2.x_u789.inm1                  0.280384
+xu1.x_u2.n16841879                        1.27
+xu1.x_u2.x_u789.inp2                         0
+xu1.x_u2.x_u789.ehys_int1                    0
+xu1.x_u2.x_u789.1                            0
+xu1.x_u2.n16841909                        0.62
+xu1.x_u2.x_u789.eout_int1                    0
+xu1.x_u2.n16819994                      198219
+xu1.x_u2.e_slowtst_int1                 198219
+xu1.x_u2.faby5                               0
+xu1.x_u2.fsw                            198219
+xu1.x_u2.n16828837                           0
+xu1.x_u2.e_pulsgen_int1                      0
+xu1.x_u2.vco_sq                              0
+xu1.x_u2.e_vco_sin_int1                      0
+xu1.x_u2.g_abmii2_int1             1.02554e-05
+xu1.x_u2.e_abm6_int1                    198219
+xu1.x_u2.x_u10.qint                          0
+xu1.x_u2.x_u10.gq_int1                       5
+xu1.x_u2.x_u10.my5                           1
+xu1.x_u2.x_u10.myvss                         0
+xu1.x_u2.x_u10.qqq                           0
+xu1.x_u2.x_u10.x3.yint                       0
+xu1.x_u2.x_u10.x3.e_abmgate_int1               0
+xu1.x_u2.x_u10.qqqd1                         0
+xu1.x_u2.x_u10.qbr                           1
+xu1.x_u2.x_u10.eqb_int1                      1
+xu1.x_u2.n16834021                           1
+xu1.x_u2.x_u788.int               3.49113e-177
+xu1.x_u2.x_u788.x_u22.yint                   1
+xu1.x_u2.x_u788.x_u22.e_abmgate_int1               1
+xu1.x_u2.x_u788.in_b_delayed                 1
+xu1.x_u2.x_u788.x_u1.yint                    0
+xu1.x_u2.x_u788.x_u1.e_abmgate_int1               0
+xu1.x_u2.e_eshut_dly_int1                    0
+xu1.e_e_oc_int1                              1
+xu1.comp_pos                            5262.3
+xu1.comp_neg                          -10765.5
+xu1.e_abm164_int1                     -10765.5
+xu1.x_u10.qint                               0
+xu1.x_u10.gq_int1                            5
+xu1.n16945907                                1
+xu1.x_u10.my5                                1
+xu1.x_u10.myvss                              0
+xu1.x_u10.qqq                                0
+xu1.x_u10.x3.yint                            0
+xu1.x_u10.x3.e_abmgate_int1                  0
+xu1.x_u10.qqqd1                              0
+xu1.x_u10.qbr                                1
+xu1.x_u10.eqb_int1                           1
+xu1.n16988765                                1
+xu1.e_e_oc3_int1                             1
+xu1.e_abm165_int1                            0
+xu1.x_u4.yint                                1
+xu1.x_u4.e_abmgate_int1                      1
+xu1.e_gain2_int1                        5262.3
+xu1.x_u5.yint                                1
+xu1.x_u5.e_abmgate_int1                      1
+xu1.e_abm7_int1                           1.26
+xu1.x_u3.yint                                0
+xu1.x_u3.e_abmgate_int1                      0
+xu1.e_abm4_int1                              0
+vs                                           0
+n001                                0.00497092
+n001a                               0.00497092
+n002                                  0.482173
+xl1.n3                                0.482173
+xm2.9                                 0.482173
+xm2.7                              1.98082e-11
+xm2.8                                  1.18378
+n008                                   1.18378
+n004                               1.88464e-11
+xm2.4                                        0
+xm2.5                                 0.482173
+xm2.10                                0.482173
+xm2.11                                0.482173
+xm2.6                                 0.482173
+out                                      77.44
+c10a                                         0
+c10b                                         0
+p001                                   1.40741
+outl                                     77.44
+b.xu1.be_abm4#branch                         0
+b.xu1.x_u3.be_abmgate#branch                 0
+b.xu1.be_abm7#branch                         0
+b.xu1.x_u5.be_abmgate#branch                 0
+b.xu1.be_gain2#branch                        0
+b.xu1.x_u4.be_abmgate#branch                 0
+b.xu1.be_abm165#branch                       0
+b.xu1.be_e_oc3#branch                        0
+b.xu1.x_u10.beqb#branch                      0
+b.xu1.x_u10.x3.be_abmgate#branch               0
+b.xu1.x_u10.bgq#branch                       0
+b.xu1.be_abm164#branch                       0
+b.xu1.be_e_oc#branch                         0
+b.xu1.x_u2.be_eshut_dly#branch               0
+v.xu1.x_u2.v_ifa#branch            1.03842e-05
+b.xu1.x_u2.x_u788.x_u1.be_abmgate#branch               0
+b.xu1.x_u2.x_u788.x_u22.be_abmgate#branch               0
+b.xu1.x_u2.x_u10.beqb#branch                 0
+b.xu1.x_u2.x_u10.x3.be_abmgate#branch               0
+b.xu1.x_u2.x_u10.bgq#branch                  0
+b.xu1.x_u2.be_abm6#branch                    0
+b.xu1.x_u2.bg_abmii2#branch                  0
+b.xu1.x_u2.be_vco_sin#branch                 0
+b.xu1.x_u2.be_pulsgen#branch                 0
+b.xu1.x_u2.be_slowtst#branch                 0
+b.xu1.x_u2.x_u789.beout#branch               0
+b.xu1.x_u2.x_u789.behys#branch               0
+b.xu1.x_u2.x_u2.be_abmgate#branch               0
+b.xu1.x_u2.be_vfagen#branch                  0
+b.xu1.x_u2.be_e12gen#branch                  0
+b.xu1.x_u2.be_shutgen#branch                 0
+b.xu1.x_u2.be_slowtst2#branch                0
+b.xu1.x_u2.be_rampgen#branch                 0
+b.xu1.be_gain3#branch                        0
+b.xu1.be_abm167#branch                       0
+b.xu1.be_ovgen#branch                        0
+b.xu1.x_u137.be_abmgate#branch               0
+b.xu1.x_u138.be_abmgate#branch               0
+b.xu1.bg_abmii1#branch                       0
+b.xu1.x_u7.beout#branch                      0
+b.xu1.x_u7.behys#branch                      0
+b.xu1.be_abm166#branch                       0
+b.xu1.x_erramp.beb4#branch                   0
+b.xu1.x_erramp.bgb3#branch                   0
+b.xu1.x_erramp.beb9#branch                   0
+b.xu1.x_erramp.bgb7#branch                   0
+b.xu1.be_gain4#branch                        0
+b.xu1.x_u1.x_u137.be_abmgate#branch               0
+b.xu1.x_u1.x_u17.beqb#branch                 0
+b.xu1.x_u1.x_u17.x3.be_abmgate2#branch               0
+b.xu1.x_u1.x_u17.x3.be_abmgate1#branch               0
+b.xu1.x_u1.x_u17.bgq#branch                  0
+b.xu1.x_u1.x_u17.x2.be_abmgate#branch               0
+b.xu1.x_u1.x_u17.x1.be_abmgate2#branch               0
+b.xu1.x_u1.x_u17.x1.be_abmgate1#branch               0
+b.xu1.x_u1.bg_abmii5#branch                  0
+b.xu1.x_u1.be_abm55#branch                   0
+b.xu1.x_u1.x_u138.be_abmgate#branch               0
+b.xu1.be_e_oc2#branch                        0
+b.xu1.bg_iss#branch                          0
+b.xu1.be_edriver#branch                      0
+b.xu1.x_u6.be_abmgate#branch                 0
+b.xu1.be_abm6#branch                         0
+v.xm2.vfi1#branch                            0
+v.xm2.vfi2#branch                  4.82173e-13
+lc10#branch                                  0
+l.xl1.l1#branch                      -0.497086
+e.xm2.ev16#branch                 -2.01444e-10
+e.xu1.e_abm4#branch                          0
+e.xu1.x_u3.e_abmgate#branch                  0
+e.xu1.e_abm7#branch                  -1.26e-09
+e.xu1.x_u5.e_abmgate#branch                  0
+e.xu1.e_gain2#branch                         0
+e.xu1.x_u4.e_abmgate#branch                  0
+e.xu1.e_abm165#branch                        0
+e.xu1.e_e_oc3#branch                         0
+e.xu1.x_u10.eqb#branch                       0
+e.xu1.x_u10.x3.e_abmgate#branch               0
+e.xu1.x_u10.eq#branch                        0
+e.xu1.e_abm164#branch                        0
+e.xu1.e_e_oc#branch                     -1e-09
+e.xu1.x_u2.e_eshut_dly#branch      2.43811e-05
+e.xu1.x_u2.x_u788.x_u1.e_abmgate#branch               0
+e.xu1.x_u2.x_u788.x_u22.e_abmgate#branch               0
+e.xu1.x_u2.x_u10.eqb#branch                  0
+e.xu1.x_u2.x_u10.x3.e_abmgate#branch               0
+e.xu1.x_u2.x_u10.eq#branch                   0
+e.xu1.x_u2.e_abm6#branch                     0
+e.xu1.x_u2.e_vco_sin#branch                  0
+e.xu1.x_u2.e_pulsgen#branch      -8.41264e-189
+e.xu1.x_u2.e_slowtst#branch                  0
+e.xu1.x_u2.x_u789.eout#branch     5.76401e-128
+e.xu1.x_u2.x_u789.ehys#branch                0
+e.xu1.x_u2.x_u789.ein#branch                 0
+e.xu1.x_u2.x_u2.e_abmgate#branch               0
+e.xu1.x_u2.e_vfagen#branch        -1.03842e-05
+e.xu1.x_u2.e_e12gen#branch                   0
+e.xu1.x_u2.e_shutgen#branch                  0
+e.xu1.x_u2.e_slowtst2#branch                 0
+e.xu1.x_u2.e_rampgen#branch        -1.6665e-05
+e.xu1.e_gain3#branch                         0
+e.xu1.e_abm167#branch                        0
+e.xu1.e_ovgen#branch                         0
+e.xu1.x_u137.e_abmgate#branch                0
+e.xu1.x_u138.e_abmgate#branch                0
+e.xu1.x_u7.eout#branch                       0
+e.xu1.x_u7.ehys#branch                       0
+e.xu1.x_u7.ein#branch                        0
+e.xu1.e_abm166#branch             -9.75585e-13
+e.xu1.x_erramp.eb4#branch         -3.78337e-06
+e.xu1.x_erramp.eb9#branch             5.01e-12
+e.xu1.e_gain4#branch              -2.43811e-05
+e.xu1.e_e_bias#branch             -5.01021e-12
+e.xu1.x_u1.x_u137.e_abmgate#branch               0
+e.xu1.x_u1.x_u17.eqb#branch                  0
+e.xu1.x_u1.x_u17.x3.e_abmgate2#branch               0
+e.xu1.x_u1.x_u17.x3.e_abmgate1#branch               0
+e.xu1.x_u1.x_u17.eq#branch                   0
+e.xu1.x_u1.x_u17.x2.e_abmgate#branch               0
+e.xu1.x_u1.x_u17.x1.e_abmgate2#branch               0
+e.xu1.x_u1.x_u17.x1.e_abmgate1#branch               0
+e.xu1.x_u1.e_abm55#branch                    0
+e.xu1.x_u1.x_u138.e_abmgate#branch               0
+e.xu1.e_e_oc2#branch                    -1e-10
+e.xu1.e_edriver#branch             6.51782e-16
+e.xu1.x_u6.e_abmgate#branch                  0
+e.xu1.e_abm6#branch                          0
+vload#branch                                 0
+vsense#branch                        -0.497092
+v1#branch                             0.497092
+v.xu1.v_ifa#branch                 1.03842e-05
+v.xu1.v_v1#branch                            0
+v.xu1.x_u10.v2#branch            -4.51849e-306
+v.xu1.x_u10.v1#branch               -1.001e-12
+v.xu1.x_u2.v_p1v#branch           -1.02554e-05
+v.xu1.x_u2.x_u10.v2#branch       -4.51849e-306
+v.xu1.x_u2.x_u10.v1#branch          -1.001e-12
+v.xu1.x_u2.v_v2#branch                       0
+v.xu1.x_u2.v_v1#branch                       0
+v.xu1.v_v2#branch                            0
+v.xu1.x_erramp.v5#branch          -3.83715e-12
+v.xu1.x_erramp.v2#branch           1.42404e-12
+v.xu1.v_v3#branch                 -9.75585e-13
+v.xu1.v_iss_tst#branch                1.26e-09
+v.xu1.x_u1.v_v1#branch                       0
+v.xu1.x_u1.x_u17.v1#branch          -5.001e-12
+v.xu1.x_u1.v_v2#branch               -1.01e-12
+vcc_ic#branch                     -5.00501e-09
+
+ Reference value :  8.66864e-05 Reference value :  1.40131e-04 Reference value :  1.91701e-04 Reference value :  2.40644e-04 Reference value :  2.87709e-04 Reference value :  3.38006e-04 Reference value :  3.85265e-04 Reference value :  4.35749e-04 Reference value :  4.83323e-04 Reference value :  5.26576e-04 Reference value :  5.72556e-04 Reference value :  6.20609e-04 Reference value :  6.72915e-04 Reference value :  7.21314e-04 Reference value :  7.68723e-04 Reference value :  8.19199e-04 Reference value :  8.67813e-04 Reference value :  9.15074e-04 Reference value :  9.65577e-04 Reference value :  1.01390e-03 Reference value :  1.05948e-03 Reference value :  1.10690e-03 Reference value :  1.15728e-03 Reference value :  1.20561e-03 Reference value :  1.24745e-03 Reference value :  1.27655e-03 Reference value :  1.31184e-03 Reference value :  1.34614e-03 Reference value :  1.37208e-03 Reference value :  1.39761e-03 Reference value :  1.42477e-03 Reference value :  1.45280e-03 Reference value :  1.48220e-03 Reference value :  1.51049e-03 Reference value :  1.53865e-03 Reference value :  1.56891e-03 Reference value :  1.59625e-03 Reference value :  1.62646e-03 Reference value :  1.65643e-03 Reference value :  1.68482e-03 Reference value :  1.71253e-03 Reference value :  1.73921e-03 Reference value :  1.76552e-03 Reference value :  1.79094e-03 Reference value :  1.81609e-03 Reference value :  1.84119e-03 Reference value :  1.86842e-03 Reference value :  1.89870e-03 Reference value :  1.92892e-03 Reference value :  1.95722e-03 Reference value :  1.98434e-03 Reference value :  2.01272e-03 Reference value :  2.03978e-03 Reference value :  2.06563e-03 Reference value :  2.09371e-03 Reference value :  2.12068e-03 Reference value :  2.14636e-03 Reference value :  2.17158e-03 Reference value :  2.20128e-03 Reference value :  2.23157e-03 Reference value :  2.26150e-03 Reference value :  2.28726e-03 Reference value :  2.31548e-03 Reference value :  2.34273e-03 Reference value :  2.37096e-03 Reference value :  2.39748e-03 Reference value :  2.42772e-03 Reference value :  2.45456e-03 Reference value :  2.48193e-03 Reference value :  2.50828e-03 Reference value :  2.53731e-03 Reference value :  2.56396e-03 Reference value :  2.59291e-03 Reference value :  2.61930e-03 Reference value :  2.64825e-03 Reference value :  2.67479e-03 Reference value :  2.69998e-03 Reference value :  2.72995e-03 Reference value :  2.75524e-03 Reference value :  2.78446e-03 Reference value :  2.81340e-03 Reference value :  2.84089e-03 Reference value :  2.86664e-03 Reference value :  2.89576e-03 Reference value :  2.92149e-03 Reference value :  2.94873e-03 Reference value :  2.97691e-03 Reference value :  3.00212e-03 Reference value :  3.02731e-03 Reference value :  3.05260e-03 Reference value :  3.07773e-03 Reference value :  3.10517e-03 Reference value :  3.13346e-03 Reference value :  3.15897e-03 Reference value :  3.18814e-03 Reference value :  3.21383e-03 Reference value :  3.23902e-03 Reference value :  3.26434e-03 Reference value :  3.29307e-03 Reference value :  3.31968e-03 Reference value :  3.34493e-03 Reference value :  3.37512e-03 Reference value :  3.40240e-03 Reference value :  3.43015e-03 Reference value :  3.45582e-03 Reference value :  3.48604e-03 Reference value :  3.51251e-03 Reference value :  3.54110e-03 Reference value :  3.56678e-03 Reference value :  3.59658e-03 Reference value :  3.62222e-03 Reference value :  3.65251e-03 Reference value :  3.68276e-03 Reference value :  3.71291e-03 Reference value :  3.73825e-03 Reference value :  3.76851e-03 Reference value :  3.79853e-03 Reference value :  3.82610e-03 Reference value :  3.85485e-03 Reference value :  3.88455e-03 Reference value :  3.91441e-03 Reference value :  3.94227e-03 Reference value :  3.97492e-03 Reference value :  4.00265e-03 Reference value :  4.03082e-03 Reference value :  4.06106e-03 Reference value :  4.09135e-03 Reference value :  4.12119e-03 Reference value :  4.14682e-03 Reference value :  4.17669e-03 Reference value :  4.20270e-03 Reference value :  4.23250e-03 Reference value :  4.25871e-03 Reference value :  4.28799e-03 Reference value :  4.31478e-03 Reference value :  4.34356e-03 Reference value :  4.37389e-03 Reference value :  4.40409e-03 Reference value :  4.43394e-03 Reference value :  4.46422e-03 Reference value :  4.48998e-03 Reference value :  4.52011e-03 Reference value :  4.54540e-03 Reference value :  4.57518e-03 Reference value :  4.60043e-03 Reference value :  4.62668e-03 Reference value :  4.65454e-03 Reference value :  4.68113e-03 Reference value :  4.70646e-03 Reference value :  4.73202e-03 Reference value :  4.75927e-03 Reference value :  4.78706e-03 Reference value :  4.81337e-03 Reference value :  4.84264e-03 Reference value :  4.86779e-03 Reference value :  4.89350e-03 Reference value :  4.92097e-03 Reference value :  4.94899e-03 Reference value :  4.97452e-03 Reference value :  5.00449e-03 Reference value :  5.02997e-03 Reference value :  5.05498e-03 Reference value :  5.08052e-03 Reference value :  5.10768e-03 Reference value :  5.13469e-03 Reference value :  5.16032e-03 Reference value :  5.18431e-03 Reference value :  5.21078e-03 Reference value :  5.23660e-03 Reference value :  5.26184e-03 Reference value :  5.28707e-03 Reference value :  5.31585e-03 Reference value :  5.34283e-03 Reference value :  5.37231e-03 Reference value :  5.39829e-03 Reference value :  5.42767e-03 Reference value :  5.45356e-03 Reference value :  5.47881e-03 Reference value :  5.50837e-03 Reference value :  5.53431e-03 Reference value :  5.56419e-03 Reference value :  5.58978e-03 Reference value :  5.61504e-03 Reference value :  5.64040e-03 Reference value :  5.66918e-03 Reference value :  5.69516e-03 Reference value :  5.72604e-03 Reference value :  5.75182e-03 Reference value :  5.78077e-03 Reference value :  5.80598e-03 Reference value :  5.83121e-03 Reference value :  5.85659e-03 Reference value :  5.88242e-03 Reference value :  5.90767e-03 Reference value :  5.93286e-03 Reference value :  5.95866e-03 Reference value :  5.98772e-03 Reference value :  6.01521e-03 Reference value :  6.04320e-03 Reference value :  6.06913e-03 Reference value :  6.09447e-03 Reference value :  6.12193e-03 Reference value :  6.15007e-03 Reference value :  6.18012e-03 Reference value :  6.20808e-03 Reference value :  6.23566e-03 Reference value :  6.26114e-03 Reference value :  6.29025e-03 Reference value :  6.31648e-03 Reference value :  6.34303e-03 Reference value :  6.37106e-03 Reference value :  6.39729e-03 Reference value :  6.42525e-03 Reference value :  6.45286e-03 Reference value :  6.48206e-03 Reference value :  6.50846e-03 Reference value :  6.53742e-03 Reference value :  6.56532e-03 Reference value :  6.59290e-03 Reference value :  6.61959e-03 Reference value :  6.64871e-03 Reference value :  6.68022e-03 Reference value :  6.70621e-03 Reference value :  6.73324e-03 Reference value :  6.76116e-03 Reference value :  6.79148e-03 Reference value :  6.81683e-03 Reference value :  6.84521e-03 Reference value :  6.87241e-03 Reference value :  6.89873e-03 Reference value :  6.92582e-03 Reference value :  6.95325e-03 Reference value :  6.97930e-03 Reference value :  7.00883e-03 Reference value :  7.03678e-03 Reference value :  7.06336e-03 Reference value :  7.08976e-03 Reference value :  7.11571e-03 Reference value :  7.14016e-03 Reference value :  7.16539e-03 Reference value :  7.19066e-03 Reference value :  7.21588e-03 Reference value :  7.24355e-03 Reference value :  7.26960e-03 Reference value :  7.29799e-03 Reference value :  7.32956e-03 Reference value :  7.35994e-03 Reference value :  7.38990e-03 Reference value :  7.41858e-03 Reference value :  7.44818e-03 Reference value :  7.47834e-03 Reference value :  7.50611e-03 Reference value :  7.53631e-03 Reference value :  7.56474e-03 Reference value :  7.59499e-03 Reference value :  7.62540e-03 Reference value :  7.65494e-03 Reference value :  7.68750e-03 Reference value :  7.72042e-03 Reference value :  7.75073e-03 Reference value :  7.78095e-03 Reference value :  7.80868e-03 Reference value :  7.83721e-03 Reference value :  7.86667e-03 Reference value :  7.89446e-03 Reference value :  7.91767e-03 Reference value :  7.94508e-03 Reference value :  7.97250e-03 Reference value :  7.99768e-03 Reference value :  8.02056e-03 Reference value :  8.04565e-03 Reference value :  8.07325e-03 Reference value :  8.09853e-03 Reference value :  8.12363e-03 Reference value :  8.15158e-03 Reference value :  8.17988e-03 Reference value :  8.20718e-03 Reference value :  8.23454e-03 Reference value :  8.26257e-03 Reference value :  8.29002e-03 Reference value :  8.31805e-03 Reference value :  8.34544e-03 Reference value :  8.37122e-03 Reference value :  8.39873e-03 Reference value :  8.42461e-03 Reference value :  8.45139e-03 Reference value :  8.47775e-03 Reference value :  8.50470e-03 Reference value :  8.53105e-03 Reference value :  8.55545e-03 Reference value :  8.58253e-03 Reference value :  8.60784e-03 Reference value :  8.63583e-03 Reference value :  8.66323e-03 Reference value :  8.69132e-03 Reference value :  8.71871e-03 Reference value :  8.74667e-03 Reference value :  8.77423e-03 Reference value :  8.80002e-03 Reference value :  8.82552e-03 Reference value :  8.85273e-03 Reference value :  8.88020e-03 Reference value :  8.90835e-03 Reference value :  8.93581e-03 Reference value :  8.96594e-03 Reference value :  8.99620e-03 Reference value :  9.02436e-03 Reference value :  9.05167e-03 Reference value :  9.07753e-03 Reference value :  9.10721e-03 Reference value :  9.13522e-03 Reference value :  9.16270e-03 Reference value :  9.19102e-03 Reference value :  9.21817e-03 Reference value :  9.24620e-03 Reference value :  9.27363e-03 Reference value :  9.29962e-03 Reference value :  9.32915e-03 Reference value :  9.35514e-03 Reference value :  9.38465e-03 Reference value :  9.41265e-03 Reference value :  9.43785e-03 Reference value :  9.46536e-03 Reference value :  9.49559e-03 Reference value :  9.52161e-03 Reference value :  9.55102e-03 Reference value :  9.57911e-03 Reference value :  9.60804e-03 Reference value :  9.63682e-03 Reference value :  9.66207e-03 Reference value :  9.69096e-03 Reference value :  9.71813e-03 Reference value :  9.74774e-03 Reference value :  9.77304e-03 Reference value :  9.79907e-03 Reference value :  9.82629e-03 Reference value :  9.85171e-03 Reference value :  9.87703e-03 Reference value :  9.90473e-03 Reference value :  9.93445e-03 Reference value :  9.96228e-03 Reference value :  9.98801e-03 Reference value :  1.00154e-02 Reference value :  1.00431e-02 Reference value :  1.00706e-02 Reference value :  1.00971e-02 Reference value :  1.01242e-02 Reference value :  1.01528e-02 Reference value :  1.01797e-02 Reference value :  1.02069e-02 Reference value :  1.02371e-02 Reference value :  1.02648e-02 Reference value :  1.02926e-02 Reference value :  1.03206e-02 Reference value :  1.03482e-02 Reference value :  1.03762e-02 Reference value :  1.04037e-02 Reference value :  1.04319e-02 Reference value :  1.04592e-02 Reference value :  1.04893e-02 Reference value :  1.05148e-02 Reference value :  1.05447e-02 Reference value :  1.05711e-02 Reference value :  1.05984e-02 Reference value :  1.06255e-02 Reference value :  1.06536e-02 Reference value :  1.06811e-02 Reference value :  1.07092e-02 Reference value :  1.07367e-02 Reference value :  1.07641e-02 Reference value :  1.07920e-02 Reference value :  1.08189e-02 Reference value :  1.08476e-02 Reference value :  1.08760e-02 Reference value :  1.09029e-02 Reference value :  1.09309e-02 Reference value :  1.09563e-02 Reference value :  1.09837e-02 Reference value :  1.10117e-02 Reference value :  1.10378e-02 Reference value :  1.10645e-02 Reference value :  1.10946e-02 Reference value :  1.11227e-02 Reference value :  1.11501e-02 Reference value :  1.11781e-02 Reference value :  1.12056e-02 Reference value :  1.12331e-02 Reference value :  1.12611e-02 Reference value :  1.12863e-02 Reference value :  1.13140e-02 Reference value :  1.13418e-02 Reference value :  1.13701e-02 Reference value :  1.13973e-02 Reference value :  1.14254e-02 Reference value :  1.14528e-02 Reference value :  1.14808e-02 Reference value :  1.15083e-02 Reference value :  1.15360e-02 Reference value :  1.15638e-02 Reference value :  1.15918e-02 Reference value :  1.16192e-02 Reference value :  1.16462e-02 Reference value :  1.16738e-02 Reference value :  1.16999e-02 Reference value :  1.17251e-02 Reference value :  1.17533e-02 Reference value :  1.17802e-02 Reference value :  1.18059e-02 Reference value :  1.18326e-02 Reference value :  1.18591e-02 Reference value :  1.18866e-02 Reference value :  1.19147e-02 Reference value :  1.19449e-02 Reference value :  1.19729e-02 Reference value :  1.20026e-02 Reference value :  1.20304e-02 Reference value :  1.20595e-02 Reference value :  1.20884e-02 Reference value :  1.21167e-02 Reference value :  1.21458e-02 Reference value :  1.21746e-02 Reference value :  1.22044e-02 Reference value :  1.22327e-02 Reference value :  1.22601e-02 Reference value :  1.22879e-02 Reference value :  1.23153e-02 Reference value :  1.23406e-02 Reference value :  1.23686e-02 Reference value :  1.23968e-02 Reference value :  1.24313e-02 Reference value :  1.24667e-02 Reference value :  1.25020e-02 Reference value :  1.25322e-02 Reference value :  1.25627e-02 Reference value :  1.25940e-02 Reference value :  1.26309e-02 Reference value :  1.26634e-02 Reference value :  1.26990e-02 Reference value :  1.27368e-02 Reference value :  1.27744e-02 Reference value :  1.28097e-02 Reference value :  1.28428e-02 Reference value :  1.28753e-02 Reference value :  1.29106e-02 Reference value :  1.29487e-02 Reference value :  1.29862e-02 Reference value :  1.30215e-02 Reference value :  1.30546e-02 Reference value :  1.30902e-02 Reference value :  1.31252e-02 Reference value :  1.31577e-02 Reference value :  1.31930e-02 Reference value :  1.32297e-02 Reference value :  1.32665e-02 Reference value :  1.33040e-02 Reference value :  1.33407e-02 Reference value :  1.33820e-02 Reference value :  1.34251e-02 Reference value :  1.34656e-02 Reference value :  1.35092e-02 Reference value :  1.35518e-02 Reference value :  1.35966e-02 Reference value :  1.36394e-02 Reference value :  1.36823e-02 Reference value :  1.37235e-02 Reference value :  1.37681e-02 Reference value :  1.38135e-02 Reference value :  1.38589e-02 Reference value :  1.39024e-02 Reference value :  1.39496e-02 Reference value :  1.39931e-02
+No. of Data Rows : 1053105
+pin_ss              =  2.141193e-01 from=  1.200000e-02 to=  1.400000e-02
+pout_ss             =  1.935167e-01 from=  1.200000e-02 to=  1.400000e-02
+vout_ss             =  7.740668e+01 from=  1.200000e-02 to=  1.400000e-02
+vpp_ss              =  4.424966e-03 from=  1.200000e-02 to=  1.400000e-02
+ilavg_ss            =  1.783801e-02 from=  1.200000e-02 to=  1.400000e-02
+ilmax_ss            =  7.718074e-02 at=  1.275197e-02
+vinpp_ss            =  6.997186e-04 from=  1.200000e-02 to=  1.400000e-02
+comp_ss             =  1.426979e+00 from=  1.200000e-02 to=  1.400000e-02
+pin_sw              =  2.091689e-01 from=  1.398000e-02 to=  1.400000e-02
+pout_sw             =  1.935170e-01 from=  1.398000e-02 to=  1.400000e-02
+vout_sw             =  7.740679e+01 from=  1.398000e-02 to=  1.400000e-02
+vpp_sw              =  3.728067e-03 from=  1.398000e-02 to=  1.400000e-02
+ilavg_sw            =  1.740127e-02 from=  1.398000e-02 to=  1.400000e-02
+ilmax_sw            =  7.627775e-02 at=  1.399286e-02
+vinpp_sw            =  6.970989e-04 from=  1.398000e-02 to=  1.400000e-02
+comp_sw             =  1.426970e+00 from=  1.398000e-02 to=  1.400000e-02
+@@RESULT pin_ss 0.214119
+@@RESULT pout_ss 0.193517
+@@RESULT vout_ss 77.4067
+@@RESULT vpp_ss 0.00442497
+@@RESULT ilavg_ss 0.017838
+@@RESULT ilmax_ss 0.0771807
+@@RESULT vinpp_ss 0.000699719
+@@RESULT comp_ss 1.42698
+@@RESULT eff_ss 90.378
+@@RESULT pin_sw 0.209169
+@@RESULT pout_sw 0.193517
+@@RESULT vout_sw 77.4068
+@@RESULT vpp_sw 0.00372807
+@@RESULT ilavg_sw 0.0174013
+@@RESULT ilmax_sw 0.0762778
+@@RESULT vinpp_sw 0.000697099
+@@RESULT comp_sw 1.42697
+@@RESULT eff_sw 92.5171
+binary raw file "case_005.raw"
+Note: Simulation executed from .control section 

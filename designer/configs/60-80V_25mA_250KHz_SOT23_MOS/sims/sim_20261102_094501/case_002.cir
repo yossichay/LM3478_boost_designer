@@ -1,0 +1,128 @@
+* Non-isolated booster (LM3478) - ngspice port of Non-iso-Booster-TI-LTspice.net
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/WE-PD.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/designer/user_models/BAT46.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/designer/user_models/irlml0100.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/designer/configs/60-80V_25mA_250KHz_SOT23_MOS/sims/sim_20261102_094501/designer_parts.lib"
+* WEBENCH design: 11V-13V in -> 70V @ 0.1A out
+
+* ---- Models (ngspice needs .include; LTspice .lib-without-section is not valid here)
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/LM3478_TRANS.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/OptiMOS3_150V_Spice.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/rb068lam150.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/WE-TI.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/BSZ520N15NS3_vdmos.lib"
+.include "/home/yossi/Shade/DK/Non-Isolated Booster/sim/MBRS3200T3G.lib"
+
+* ---- Sweepable parameters (sweep.py overrides these by name)
+.param vin=12 iload=0.1
+
+* ---- Controller
+XU1 0 COMP N003 N005 N006 N007 0 N001 LM3478_TRANS PARAMS: SS=0.0041
+
+* ---- Input source (LTspice Rser=10m -> explicit resistor)
+V1 VS 0 PULSE(0 {vin} 0 3m)
+RV1 VS N001 10m
+
+* ---- Input caps (C8: LTspice Rser/Lser/Cpar -> explicit parasitics)
+C5 N001 0 10u
+C7 N001 0 10u
+* C8 N001 C8a 47u
+* RC8 C8a C8b 0.38
+* LC8 C8b 0 200p
+* CC8p N001 0 10p
+C9 N001 0 0.1u
+
+* ---- Power stage
+* L1: Wurth 7447221101 100uH. Vsense is a 0V ammeter so i(Vsense) = inductor current
+Vsense N001 N001a 0
+XL1 N001a N002 PD_1050_7447714102_1000U
+* XM2: LTspice's VDMOS model (~10x faster than Infineon's BSZ520N15NS3_L1, results within ~5%).
+* Use BSZ520N15NS3_L1 (or _L0) for final checks - all three are pin-compatible.
+XM2 N002 N004 N008 IRLML0100
+* D2: MBRS3200T3G with TT=0 (the vendor model's TT=45n fakes reverse recovery - see MBRS3200T3G.lib)
+D2 N002 out DI_BAT46W
+R7 N004 N003 22
+R1 N008 0 0.27
+R2 N008 N007 100
+C1 N007 0 10p
+
+* ---- Output caps (C10: LTspice Rser/Lser/Cpar -> explicit parasitics)
+C10 out C10a 2.3e-06
+RC10 C10a C10b 0.01
+LC10 C10b 0 4.313n
+CC10p out 0 10p
+C11 out 0 0.1u
+C12 out 0 2.2e-06
+C2 out 0 2.2e-06
+
+* ---- Feedback, frequency set, compensation
+R3 out N006 792000
+R4 N006 0 16900
+R8 0 N006 1e12
+R5 N005 0 71500
+C3 COMP 0 1.8e-09
+R6 COMP P001 5600
+C4 P001 0 4.7e-08
+
+* ---- Load step: 0 -> iload at 10ms. Vload is a 0V ammeter so i(vload) = load current
+Vload out outl 0
+I1 outl 0 PWL(0 0 0.006 0 0.007 0.005)
+
+* method=gear: trapezoidal (default) fails with "timestep too small" at ~0.7ms when the gate driver starts
+.options method=gear abstol=1e-6 vntol=1e-4 reltol=0.01 gmin=1e-12
+.ic V(out)=58.5
+* ngspice needs an explicit step. KEEP maxstep <= 50n: with 200n, 500n, 1u or no limit the
+* converter never started (tested with the _L1 and _VD MOSFETs). Likely cause: the LM3478
+* model makes its clock from SIN(2*pi*f*TIME) in a behavioural source, and large steps skip
+* the clock edges.
+.tran 5e-08 0.014 0 5e-08
+
+.control
+run
+let mv_pin = -v(n001)*i(v1)
+let mv_pout = v(out)*i(vload)
+let mv_vout = v(out)
+let mv_vpp = v(out)
+let mv_ilavg = i(vsense)
+let mv_ilmax = i(vsense)
+let mv_vinpp = v(n001)
+let mv_comp = v(comp)
+meas tran pin_ss avg mv_pin from=0.012 to=0.014
+meas tran pout_ss avg mv_pout from=0.012 to=0.014
+meas tran vout_ss avg mv_vout from=0.012 to=0.014
+meas tran vpp_ss pp mv_vpp from=0.012 to=0.014
+meas tran ilavg_ss avg mv_ilavg from=0.012 to=0.014
+meas tran ilmax_ss max mv_ilmax from=0.012 to=0.014
+meas tran vinpp_ss pp mv_vinpp from=0.012 to=0.014
+meas tran comp_ss avg mv_comp from=0.012 to=0.014
+let eff_ss = 100*pout_ss/pin_ss
+meas tran pin_sw avg mv_pin from=0.01398 to=0.014
+meas tran pout_sw avg mv_pout from=0.01398 to=0.014
+meas tran vout_sw avg mv_vout from=0.01398 to=0.014
+meas tran vpp_sw pp mv_vpp from=0.01398 to=0.014
+meas tran ilavg_sw avg mv_ilavg from=0.01398 to=0.014
+meas tran ilmax_sw max mv_ilmax from=0.01398 to=0.014
+meas tran vinpp_sw pp mv_vinpp from=0.01398 to=0.014
+meas tran comp_sw avg mv_comp from=0.01398 to=0.014
+let eff_sw = 100*pout_sw/pin_sw
+echo @@RESULT pin_ss $&pin_ss
+echo @@RESULT pout_ss $&pout_ss
+echo @@RESULT vout_ss $&vout_ss
+echo @@RESULT vpp_ss $&vpp_ss
+echo @@RESULT ilavg_ss $&ilavg_ss
+echo @@RESULT ilmax_ss $&ilmax_ss
+echo @@RESULT vinpp_ss $&vinpp_ss
+echo @@RESULT comp_ss $&comp_ss
+echo @@RESULT eff_ss $&eff_ss
+echo @@RESULT pin_sw $&pin_sw
+echo @@RESULT pout_sw $&pout_sw
+echo @@RESULT vout_sw $&vout_sw
+echo @@RESULT vpp_sw $&vpp_sw
+echo @@RESULT ilavg_sw $&ilavg_sw
+echo @@RESULT ilmax_sw $&ilmax_sw
+echo @@RESULT vinpp_sw $&vinpp_sw
+echo @@RESULT comp_sw $&comp_sw
+echo @@RESULT eff_sw $&eff_sw
+write case_002.raw v(out) i(vsense) v(n002) v(comp) v(n001) v(n008) v(n001a) v(n003) v(n004)
+.endc
+.end

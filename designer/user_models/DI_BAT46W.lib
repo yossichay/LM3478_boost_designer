@@ -1,0 +1,3 @@
+*SRC=BAT46W;DI_BAT46W;Diodes;Si;  100V  0.150A  5.00ns   Diodes Inc. Schottky 
+.MODEL DI_BAT46W D  ( IS=603n RS=0.280 BV=100 IBV=5.00u 
++ CJO=7.96p  M=0.333 N=1.70 TT=7.20n )

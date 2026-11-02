@@ -1,0 +1,5 @@
+# simulation output
+results/
+*.raw
+__pycache__/
+*.pyc

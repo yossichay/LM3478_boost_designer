@@ -1,0 +1,98 @@
+* Non-isolated booster (LM3478) - ngspice port of Non-iso-Booster-TI-LTspice.net
+* WEBENCH design: 11V-13V in -> 70V @ 0.1A out
+
+* ---- Models (ngspice needs .include; LTspice .lib-without-section is not valid here)
+.include LM3478_TRANS.lib
+.include OptiMOS3_150V_Spice.lib
+.include rb068lam150.lib
+.include WE-TI.lib
+.include BSZ520N15NS3_vdmos.lib
+.include MBRS3200T3G.lib
+
+* ---- Sweepable parameters (sweep.py overrides these by name)
+.param vin=12 iload=0.1
+
+* ---- Controller
+XU1 0 COMP N003 N005 N006 N007 0 N001 LM3478_TRANS PARAMS: SS=0.0041
+
+* ---- Input source (LTspice Rser=10m -> explicit resistor)
+V1 VS 0 PULSE(0 {vin} 0 3m)
+RV1 VS N001 10m
+
+* ---- Input caps (C8: LTspice Rser/Lser/Cpar -> explicit parasitics)
+C5 N001 0 10u
+C7 N001 0 10u
+* C8 N001 C8a 47u
+* RC8 C8a C8b 0.38
+* LC8 C8b 0 200p
+* CC8p N001 0 10p
+C9 N001 0 0.1u
+
+* ---- Power stage
+* L1: Wurth 7447221101 100uH. Vsense is a 0V ammeter so i(Vsense) = inductor current
+Vsense N001 N001a 0
+XL1 N001a N002 TI_1016_7447221101_100u
+* XM2: LTspice's VDMOS model (~10x faster than Infineon's BSZ520N15NS3_L1, results within ~5%).
+* Use BSZ520N15NS3_L1 (or _L0) for final checks - all three are pin-compatible.
+XM2 N002 N004 N008 BSZ520N15NS3_VD
+* D2: MBRS3200T3G with TT=0 (the vendor model's TT=45n fakes reverse recovery - see MBRS3200T3G.lib)
+D2 N002 out MBRS3200T3G_TT0
+R7 N004 N003 22
+R1 N008 0 50m
+R2 N008 N007 100
+C1 N007 0 10p
+
+* ---- Output caps (C10: LTspice Rser/Lser/Cpar -> explicit parasitics)
+C10 out C10a 22u
+RC10 C10a C10b 0.0108
+LC10 C10b 0 4.313n
+CC10p out 0 10p
+C11 out 0 0.1u
+C12 out 0 2.2u
+C2 out 0 2.2u
+
+* ---- Feedback, frequency set, compensation
+R3 out N006 792K
+R4 N006 0 20K
+R8 0 N006 2000k
+R5 N005 0 26.7k
+C3 COMP 0 180p
+R6 COMP P001 143k
+C4 P001 0 680p
+
+* ---- Load step: 0 -> iload at 10ms. Vload is a 0V ammeter so i(vload) = load current
+Vload out outl 0
+I1 outl 0 PULSE(0 {iload} 10m 1u)
+
+* method=gear: trapezoidal (default) fails with "timestep too small" at ~0.7ms when the gate driver starts
+.options method=gear abstol=1e-6 vntol=1e-4 reltol=0.01 gmin=1e-12
+.ic V(out)=50
+* ngspice needs an explicit step. KEEP maxstep <= 50n: with 200n, 500n, 1u or no limit the
+* converter never started (tested with the _L1 and _VD MOSFETs). Likely cause: the LM3478
+* model makes its clock from SIN(2*pi*f*TIME) in a behavioural source, and large steps skip
+* the clock edges.
+.tran 50n 20m 0 50n
+
+.control
+run
+* Same measurements as the LTspice .meas lines
+let pin_inst  = -v(n001)*i(v1)
+let pout_inst = v(out)*i(vload)
+meas tran Pin  AVG pin_inst  from=15m to=20m
+meas tran Pout AVG pout_inst from=15m to=20m
+let Efficiency = 100*Pout/Pin
+meas tran Vout_max MAX v(out) from=15m to=20m
+meas tran Vout_min MIN v(out) from=15m to=20m
+let Vout_ripple = Vout_max-Vout_min
+meas tran IL_max MAX i(vsense) from=15m to=20m
+meas tran IL_min MIN i(vsense) from=15m to=20m
+let IL_ripple = IL_max-IL_min
+echo
+print Efficiency Vout_ripple IL_ripple
+* Save waveforms for later viewing:  ngspice -> load booster.raw
+write booster.raw v(out) v(n001) v(n002) v(n004) v(comp) i(vsense) i(v1)
+* Uncomment to plot interactively (needs X11):
+* plot v(out)
+* plot i(vsense)
+.endc
+.end

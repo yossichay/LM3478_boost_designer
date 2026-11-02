@@ -1,0 +1,5 @@
+* designed inductor: ideal L + DCR
+.subckt LDESIGN 1 2
+Rdcr 1 3 0.96
+L1 3 2 0.000463
+.ends LDESIGN

@@ -1,0 +1,17 @@
+* MBRS3200T3G D model
+.MODEL MBRS3200T3G d
++ IS=2.18777e-9   RS=0.012    N=2.0          EG=1.03
++ ISR=1.51e-9     NR=1.30     TRS1=5e-4      TRS2=1e-6
++ XTI=-1.05       BV=220      IBV=1e-05      CJO=1.8e-10
++ VJ=0.40         M=0.36      TT=4.54449e-08
+
+* MBRS3200T3G_TT0: same model with TT=0 (no reverse recovery).
+* The original TT=45n makes this Schottky behave like a PN diode: at every MOSFET
+* turn-on its stored charge gives a 7-30 A spike through Rsense (R1) that trips the
+* LM3478 current limit -> Vout dips, IL bursts, ~78% efficiency. A real Schottky has
+* essentially no reverse recovery. With TT=0: 92.8% efficiency, 67 mV ripple.
+.MODEL MBRS3200T3G_TT0 d
++ IS=2.18777e-9   RS=0.012    N=2.0          EG=1.03
++ ISR=1.51e-9     NR=1.30     TRS1=5e-4      TRS2=1e-6
++ XTI=-1.05       BV=220      IBV=1e-05      CJO=1.8e-10
++ VJ=0.40         M=0.36      TT=0

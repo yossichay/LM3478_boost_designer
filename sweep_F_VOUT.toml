@@ -1,0 +1,104 @@
+# Example sweep for sweep.py:  python3 sweep.py sweep_example.toml
+#
+# Cases = every [[case]] entry  x  every combination in [grid].
+# This example: 2 x R4 (Vout ~51.7 V / ~73 V) x 3 x R5 (fsw) x 2 x XL1 (inductor) = 12 runs.
+
+name = "r4_fsw_inductor"
+netlist = "Non-iso-Booster-TI-ngspice.cir"
+
+# Optional: override the netlist's .tran line (shorten for quick checks)
+tran = ".tran 50n 22m 0 50n"   # keep maxstep <= 50n (see README)
+
+# Parallel ngspice processes (default: number of CPUs - 2). Overridden by -j.
+# jobs = 6
+
+# Kill a case that runs longer than this (seconds). Omit for no limit.
+# timeout_s = 3600
+
+# Extra model files to .include (for alternative parts not in the base netlist)
+includes = ["WE-PD.lib"]   # for the 47 uH alternative inductor
+
+# ------------------------------------------------------------------ sweep
+# [grid.params]   -> overrides `.param name=value` in the netlist
+#                    (the base netlist defines: vin, iload)
+# [grid.elements] -> overrides an element by name. A plain value replaces the
+#                    LAST token of the line (R/C/L value, D model, X subcircuit
+#                    name). A string starting with the element name replaces the
+#                    whole line, e.g. "XM2 N002 N004 N008 BSZ900N15NS3_L1".
+
+# SPICE values with suffixes must be quoted ("20k"); plain numbers need no quotes.
+
+[grid.elements]
+# R4 = ["14k"]
+R4 = ["20k", "14k"]
+# R5 sets fsw:  R5 ~ 26.7k * (544 kHz / fsw)^1.26
+R5 = ["26.7k", "39k", "56k"]          # ~544 / ~400 / ~300 kHz
+# XL1: Wurth 7447221101 100 uH (WE-TI)  vs  7447706470 47 uH (WE-PD)
+XL1 = ["PD_1260_7447706470_47u"]
+# XL1 = ["TI_1016_7447221101_100u", "PD_1260_7447706470_47u"]
+R6 = ["33k"]
+C4 = ["3.3n"]
+C3 = ["47p"]
+# Explicit cases (optional). Each one is combined with the whole grid above.
+# A case can also have its own load profile:  load = { steps = [...] }
+# [[case]]
+# name = "heavy load"
+# load = { steps = [["0", "0.1m"], ["15m", "100m"]] }
+#
+# [[case]]
+# name = "bigger Rsense"
+# elements = { R1 = "68m" }
+
+# ------------------------------------------------------------------ load
+# Replaces the load current source (I1 by default) with a stepped profile.
+# steps = [[time, current], ...]: each current holds until the next step; the
+# first one applies from t=0. rise = transition time of each step.
+# With [load] set, the netlist's iload parameter is not used.
+
+[load]
+steps = [
+  ["0",   "0.1m"],
+  ["15m", "10m"],
+  ["18m", "40m"],
+  ["20m", "100m"],
+]
+rise = "1u"
+# element = "I1"
+
+# ------------------------------------------------------------------ measurements
+# windows: every measurement and derived value is computed in each window.
+#          The summary has one row per case and window. (For a single window,
+#          `from = "15m"` and `to = "20m"` can be used instead.)
+# func: avg | min | max | pp | rms | integ.
+# expr: any ngspice vector expression. Use `raw` instead of func/expr to pass
+#       a full ngspice meas spec, e.g. raw = "when v(out)=69 rise=1".
+# derived: computed from the measurements above with ngspice `let`.
+
+[measure]
+windows = [
+  { name = "10mA",  from = "17m", to = "17.9m" },
+  { name = "40mA",  from = "19m", to = "19.9m" },
+  { name = "100mA", from = "21m", to = "21.9m" },
+]
+meas = [
+  { name = "pin",      func = "avg", expr = "-v(n001)*i(v1)" },
+  { name = "pout",     func = "avg", expr = "v(out)*i(vload)" },
+  { name = "vout_avg", func = "avg", expr = "v(out)" },
+  { name = "vout_pp",  func = "pp",  expr = "v(out)" },
+  { name = "il_avg",   func = "avg", expr = "i(vsense)" },
+  { name = "il_pp",    func = "pp",  expr = "i(vsense)" },
+  { name = "il_max",   func = "max", expr = "i(vsense)" },
+]
+derived = [
+  { name = "efficiency", expr = "100*pout/pin" },
+]
+
+# ------------------------------------------------------------------ plots
+# One PNG per signal, all cases overlaid; one subplot per time window.
+# Extra signals to keep in the .raw files without plotting go in `save`.
+
+[plot]
+signals = ["v(out)", "i(vsense)", "v(n002)", "v(comp)"]
+windows = [["0", "22m"], ["14.5m", "22m"], ["21m", "21.01m"]]
+
+# save = ["v(n004)"]

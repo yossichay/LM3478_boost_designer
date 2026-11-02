@@ -1,0 +1,43 @@
+# AN-1286 compensation check: current vs proposed network, Vin = 11 V (worst case), load steps up to 100 mA
+name = "an1286_verify_revB"
+netlist = "../Non-iso-Booster-TI-ngspice.cir"
+tran = ".tran 50n 24m 0 50n"
+includes = ["WE-PD.lib"]
+
+[grid.params]
+vin = [11]
+
+[grid.elements]
+R4 = ["25k", "17k", "12.7k"]
+R5 = ["56k"]
+XL1 = ["PD_1260_7447706470_47u"]
+R1 = ["33m"]
+
+[[case]]
+name = "AN1286 rev B"
+elements = { R2 = "1.2k", R6 = "8.2k", C4 = "22n", C3 = "220p" }
+
+[load]
+steps = [["0", "0.1m"], ["15m", "10m"], ["18m", "40m"], ["20m", "100m"], ["22m", "40m"]]
+rise = "1u"
+
+[measure]
+windows = [
+  { name = "10mA",  from = "17m", to = "17.9m" },
+  { name = "40mA",  from = "19m", to = "19.9m" },
+  { name = "100mA", from = "21.2m", to = "21.9m" },
+  { name = "step_up", from = "20m", to = "21m" },
+  { name = "step_dn", from = "22m", to = "23m" },
+]
+meas = [
+  { name = "vout_avg", func = "avg", expr = "v(out)" },
+  { name = "vout_min", func = "min", expr = "v(out)" },
+  { name = "vout_max", func = "max", expr = "v(out)" },
+  { name = "vout_pp",  func = "pp",  expr = "v(out)" },
+  { name = "il_max",   func = "max", expr = "i(vsense)" },
+  { name = "comp_pp",  func = "pp",  expr = "v(comp)" },
+]
+
+[plot]
+signals = ["v(out)", "i(vsense)", "v(comp)"]
+windows = [["14.5m", "24m"], ["19.8m", "21m"], ["21.5m", "21.53m"]]

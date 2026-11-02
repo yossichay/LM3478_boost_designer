@@ -1,0 +1,107 @@
+LM3478 boost design
+============================================================
+Vin 12 V, Vout 60, 80 V, Iout 5 mA..25 mA, fs 249 kHz
+
+R5       RFA (frequency)           71.5 kΩ (E96) → fs = 249 kHz
+                                   (DS (7))
+L1       Inductor                  924 µH  (design value 820 µH)
+                                   (ripple 35% at full load needs ≥ 801 µH; ±20 % tolerance)
+           Isat                    ≥ 0.34 A
+                                   (= max current limit, so the limit protects the core; peak in operation 0.21 A)
+           Irms (heating)          ≥ 0.18 A
+                                   (worst corner, incl. ripple)
+           DCR                     ≤ 589 mΩ
+                                   (1% of Pout = 0.02 W)
+           Ripple dIL (p-p)        0.042–0.044 A
+                                   (volt-seconds 41.1 V·µs (core loss))
+           Rated voltage / SRF     ≥ 80 V / ≥ 2.49 MHz
+                                   (shielded, soft saturation preferred)
+R1       RSN (current sense)       270 mΩ
+                                   (limit 0.32–0.34 A over D, short-circuit latch 1.3 A; power 8 mW)
+R2       RSL (slope comp)          100 Ω
+                                   (adds 4 mV ramp; Q ≤ 1 needs (VSL+K·RSL)/RSN ≥ 0.24 A; DS (21) without RSL: RSN < 756 mΩ)
+Q        MOSFET                    VDS ≥ 120 V class
+                                   (off-state 80 V + 25 %)
+           Current                 Irms 0.17 A, peak ≥ 0.34 A
+                                   (short-circuit 1.3 A for ≤ 325 ns)
+           RDS(on) at VGS = 7.2 V  ≤ 532 mΩ
+                                   (conduction loss budget, +30 % hot (DS (28)))
+           Qg / Coss(er)           ≤ 60.2 nC / ≤ 25.1 pF
+                                   (drive 7.2 V (standard or logic-level); switching loss ≈ 25 mW at 6.7 ns edges (DS (29)))
+D        Diode (Schottky)          VR ≥ 100 V class
+                                   (reverse voltage 80 V + 25 %)
+           Current                 IF(AV) ≥ 0.03 A (2x margin: 0.05 A), IFRM ≥ 0.34 A
+                                   (DS (27))
+           Loss / Cj               12 mW conduction, Cj ≤ 25.1 pF at 80 V
+                                   (capacitive loss ½·Cj·V²·fs within budget)
+Cout     Output capacitor          6.8 µF effective at bias
+                                   (ripple 200 mV pp needs ≥ 856 nF)
+           ESR / Irms / voltage    ≤ 485 mΩ / ≥ 0.06 A / ≥ 100 V
+                                   (using 10 mΩ; ceramics lose capacitance at DC bias - use the value at 80 V)
+Cin      Input capacitor           ≥ 10 µF, ≥ 20 V, Irms ≥ 0.01 A
+                                   (DS 7.2.1.2.8: 10-20 µF good quality; + 0.1-1 µF at the VIN pin)
+RF1/RF2  Feedback for 60 V         792 kΩ / 16.9 kΩ (E96) → 60.31 V
+                                   (DS (15))
+RF1/RF2  Feedback for 80 V         792 kΩ / 12.7 kΩ (E96) → 79.84 V
+                                   (DS (15))
+R6       RC1                       5.6 kΩ
+                                   (AN-1286 sec. 5: sets fc ≤ fz2/10)
+C4       CC1                       47 nF
+                                   (zero 605 Hz, pole 63.8 Hz; COMP slew 2.3 V/ms)
+C3       CC2                       1.8 nF
+                                   (pole 15.8 kHz)
+
+Operating points
+------------------------------------------------------------
+Vin  12.0 Vout  60.0 Iout   25 mA CCM D 0.803  IL 0.138 A  dIL 0.042 A  Ipk 0.159 A  ISEN   46 mV  Q  0.31
+Vin  12.0 Vout  80.0 Iout   25 mA CCM D 0.852  IL 0.184 A  dIL 0.044 A  Ipk 0.206 A  ISEN   59 mV  Q  0.49
+Vin  12.0 Vout  60.0 Iout    5 mA CCM D 0.803  IL 0.028 A  dIL 0.042 A  Ipk 0.049 A  ISEN   16 mV  Q  0.31
+Vin  12.0 Vout  80.0 Iout    5 mA CCM D 0.852  IL 0.037 A  dIL 0.044 A  Ipk 0.059 A  ISEN   19 mV  Q  0.49
+
+Estimated losses [mW] (part values: rds 163 mΩ, qg 4.12 nC, coss 21.4 pF, tsw 6.7 ns, cj 2.27 pF, L DCR 1.86 Ω)
+------------------------------------------------------------
+Vin V  Vout V  Iout mA  Pout   Pin   η %  L DCR  Q cond  Q switch  Q Coss  Q gate  D cond  D Cj  RSN  Cout ESR  FB divider  LM3478
+-----  ------  -------  ----  ----  ----  -----  ------  --------  ------  ------  ------  ----  ---  --------  ----------  ------
+   12      60      2.5   150   208  72.0    0.5     0.1       1.7     9.6     7.4     1.2   1.0  0.1       0.0         4.5    32.4
+   12      80      2.5   200   271  73.7    0.9     0.1       2.6    17.1     7.4     1.2   1.8  0.1       0.0         8.0    32.4
+   12      60        5   300   362  82.9    1.6     0.1       2.7     9.6     7.4     2.4   1.0  0.2       0.0         4.5    32.4
+   12      80        5   400   477  83.9    2.7     0.3       4.8    17.1     7.4     2.4   1.8  0.3       0.0         8.0    32.4
+   12      60       25  1500  1621  92.6   33.5     3.1      13.4     9.6     7.4    11.9   1.0  3.9       0.0         4.5    32.4
+   12      80       25  2000  2175  92.0   59.2     5.7      23.8    17.1     7.4    11.9   1.8  7.3       0.0         8.0    32.4
+Q gate is dissipated in the LM3478 driver and the gate resistance; core loss of L1 not included.
+
+Loop (AN-1286 model)
+------------------------------------------------------------
+case                mode          fc     PM  flags
+12 V → 60 V, 5 mA   CCM     1.52 kHz    63°  
+12 V → 60 V, 25 mA  CCM     1.52 kHz    59°  
+12 V → 80 V, 5 mA   CCM       943 Hz    57°  
+12 V → 80 V, 25 mA  CCM       945 Hz    54°  
+
+Notes
+- Currents are sized with the estimated efficiency 92%, not the 95% entered (loss estimate below).
+- 60 V: load step 5 mA → 25 mA deviates about 308 mV (ΔI / (2π·fc·Cout)).
+- 80 V: load step 5 mA → 25 mA deviates about 496 mV (ΔI / (2π·fc·Cout)).
+- Estimated efficiency at 80 V / 25 mA: about 92% (loss table in the report / Losses tab; MOSFET and diode values: entered or the budget targets).
+- 60 V: CCM above 3.79 mA at Vin 12 V; pulse skipping below about 38.9 µA (325 ns minimum on-time).
+- 80 V: CCM above 3.02 mA at Vin 12 V; pulse skipping below about 27.5 µA (325 ns minimum on-time).
+- The loop model ignores inductor DCR and capacitor ESL; it uses the AN-1286 resistive load.
+
+Simulated losses [mW] (ngspice, V × I at each part; MOSFET incl. its gate path. The LM3478 model's supply and gate drive are ideal: not in Pin)
+------------------------------------------------------------
+Vin V  Vout V  Iout mA  Pout   Pin   η %    L1  MOSFET  Diode  RSN  other
+-----  ------  -------  ----  ----  ----  ----  ------  -----  ---  -----
+   12    60.3      2.5   146   177  82.7   6.8    17.6    2.2  0.2    3.8
+   12    79.8      2.5   193   247  78.2   9.0    33.8    2.7  0.2    8.2
+   12    60.3        5   292   334  87.4   7.4    26.7    3.4  0.3    4.2
+   12    79.8       25  1932  2097  92.2  46.5    83.9   16.8  6.6   10.5
+   12    79.8        5   387   455  85.0  11.0    44.2    4.0  0.4    8.7
+   12    60.3       25  1460  1559  93.6  27.1    47.6   15.6  3.5    5.6
+
+simulated with:
+  12 V → 60.3 V, 2.5 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF
+  12 V → 79.8 V, 2.5 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF
+  12 V → 60.3 V, 5 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF
+  12 V → 79.8 V, 25 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF
+  12 V → 79.8 V, 5 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF
+  12 V → 60.3 V, 25 mA: irlml0100, DI_BAT46W, L 560 µH (PD_1050_7447714681_680u), Cout 4.7 µF, RSN 240 mΩ, RSL 100 Ω, RC1 5.6 kΩ, CC1 47 nF, CC2 1.2 nF

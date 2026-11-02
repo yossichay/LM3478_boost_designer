@@ -1,0 +1,48 @@
+.SUBCKT BAT46 1 2
+.MODEL SD D (
++ N=1.0
++ IS=6.5E-8
++ RS=9.8
++ trs1=0.012
++ IKF= 0.95
++ CJO=9.0p
++ VJ=0.805
++ M=.6
++ FC=0.5
++ TT=2E-9
++ BV=120
++ ISR=4.2e-8
++ NR=1.15
++ IBV=10
++ KF=0
++ AF=1 
++ EG=0.67
++ XTI=2
++ TBV1=0.0008)
+.model AD D (
++ N=1.56
++ IS=2.46E-9
++ RS=0.21
++ trs1=0.0005
++ IKF= 0.025
++ XTI=1
++ CJO=1.5p
++ VJ=0.75
++ M=.333
++ FC=0.5
++ TT=6E-8
++ BV=105
++ ISR=6.4e-10
++ NR=1.7
++ IBV=0.001
++ KF=0
++ AF=1 
++ EG=1.25
++ TBV1=0.0008)
+D1 1 2 SD
+D3 1 2 AD
+.ENDS
+
+*SRC=BAT46W;DI_BAT46W;Diodes;Si;  100V  0.150A  5.00ns   Diodes Inc. Schottky 
+.MODEL DI_BAT46W D  ( IS=603n RS=0.280 BV=100 IBV=5.00u 
++ CJO=7.96p  M=0.333 N=1.70 TT=7.20n )
